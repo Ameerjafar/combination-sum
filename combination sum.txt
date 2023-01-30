@@ -1,0 +1,28 @@
+class Solution {
+     List<List<Integer>> outer =new ArrayList<>();
+
+     void helper(int[] nums,int ind,int target,ArrayList<Integer> list) {
+
+        if (ind == nums.length) {
+            if (target == 0) {
+                List<Integer> list1 = new ArrayList<>();
+                for (int i = 0; i < list.size(); i++) {
+                    list1.add(list.get(i));
+                }
+                outer.add(list1);
+        }
+            return;
+        }
+        if (target >= nums[ind]) {
+            list.add(nums[ind]);
+            helper(nums, ind, target - nums[ind], list);
+            list.remove(list.size()-1);
+        }
+         helper(nums,ind+1,target,list);
+    }
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        helper(candidates,0,target,new ArrayList<>());
+        return outer;
+        
+    }
+}
